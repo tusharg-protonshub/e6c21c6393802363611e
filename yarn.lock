@@ -5129,6 +5129,11 @@ mkdirp@^0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+moment@^2.27.0, moment@^2.29.1:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
@@ -5813,6 +5818,14 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.7.0, react-is@^16.8.1, react-
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-native-daterange-picker@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-daterange-picker/-/react-native-daterange-picker-1.4.0.tgz#731abb0d1d5baf4ef4b78f94a39edabd5efb834e"
+  integrity sha512-Pt/V6GOlv7j33OAkF/uDgQ6KgisexuAk1mb4YuyiRdOgH821/nE/wK8E37Fzn2R0KA7ZGJmruXNbgXDI5Ricsg==
+  dependencies:
+    lodash "^4.17.19"
+    moment "^2.27.0"
 
 react-native-drawer@2.5.1:
   version "2.5.1"

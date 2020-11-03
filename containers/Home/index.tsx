@@ -18,6 +18,9 @@ import {
   Item,
 } from 'native-base';
 import Fuse from 'fuse.js'; // for fussy search
+import moment from 'moment';
+// @ts-ignore
+import DateRangePicker from 'react-native-daterange-picker';
 
 const options = {
   keys: ['title', 'author', 'url'],
@@ -32,10 +35,26 @@ const HomeScreen = (props: any) => {
   const [perPage, setPerPage] = React.useState<number>(10);
   const [search, setSearchText] = React.useState('');
 
+  const [state, setState] = React.useState({
+    date: null,
+    startDate: null,
+    endDate: null,
+    displayedDate: moment(),
+  });
+
+  const setDates = (dates: any) => {
+    setState((prev) => {
+      return {
+        ...prev,
+        ...dates,
+      };
+    });
+  };
+
   React.useEffect(() => {
     getDataFromServer();
 
-    interval = setInterval(fetchMoreData, 10000);
+    // interval = setInterval(fetchMoreData, 10000);
 
     return function cleanup() {
       clearInterval(interval);
@@ -111,7 +130,34 @@ const HomeScreen = (props: any) => {
   const onSearch = () => {
     const fuse = new Fuse(data, options);
     const searched = fuse.search(search);
-    props.navigation.navigate('Search', {data: searched || []});
+    let withDate = [];
+    if (state.startDate && state.endDate) {
+      withDate = searched.length
+        ? searched.filter((item) => {
+            return (
+              new Date(item.item.created_at).getTime() >=
+                new Date(
+                  (state.startDate || new Date()).toISOString(),
+                ).getTime() &&
+              new Date(item.item.created_at).getTime() <=
+                new Date((state.endDate || new Date()).toISOString()).getTime()
+            );
+          })
+        : data.filter((item) => {
+            return (
+              new Date(item.created_at).getTime() >=
+                new Date(
+                  (state.startDate || new Date()).toISOString(),
+                ).getTime() &&
+              new Date(item.created_at).getTime() <=
+                new Date((state.endDate || new Date()).toISOString()).getTime()
+            );
+          });
+
+      props.navigation.navigate('Search', {data: withDate});
+    } else {
+      props.navigation.navigate('Search', {data: searched});
+    }
   };
 
   const renderFooter = () => {
@@ -150,6 +196,17 @@ const HomeScreen = (props: any) => {
           <Text>Search</Text>
         </Button>
       </Header>
+      <DateRangePicker
+        onChange={setDates}
+        date={state.date}
+        endDate={state.endDate}
+        startDate={state.startDate}
+        displayedDate={state.displayedDate}
+        range>
+        <View style={{marginVertical: 8}}>
+          <Text style={{textAlign: 'center'}}>Select Date</Text>
+        </View>
+      </DateRangePicker>
       {!loading ? (
         <FlatList
           data={data}
@@ -160,7 +217,6 @@ const HomeScreen = (props: any) => {
           onEndReached={fetchMoreData}
           onEndReachedThreshold={0.5}
           initialNumToRender={perPage}
-          // ListHeaderComponent={renderHeader}
           ListFooterComponent={renderFooter}
         />
       ) : (
