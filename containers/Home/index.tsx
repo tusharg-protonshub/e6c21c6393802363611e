@@ -129,7 +129,7 @@ const HomeScreen = (props: any) => {
           marginTop: 16,
           marginBottom: 16,
         }}>
-        <ActivityIndicator animating size="large" />
+        <ActivityIndicator animating size="large" color="black" />
       </View>
     );
   };
@@ -165,7 +165,7 @@ const HomeScreen = (props: any) => {
         />
       ) : (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <ActivityIndicator animating size="large" />
+          <ActivityIndicator animating size="large" color="black" />
         </View>
       )}
     </>
