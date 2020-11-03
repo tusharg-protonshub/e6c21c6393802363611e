@@ -17,14 +17,10 @@ import {
   Input,
   Item,
 } from 'native-base';
-import Fuse from 'fuse.js' // for fussy search
+import Fuse from 'fuse.js'; // for fussy search
 
 const options = {
-  keys: [
-    "title",
-    "author",
-    "url"
-  ]
+  keys: ['title', 'author', 'url'],
 };
 
 const HomeScreen = (props: any) => {
@@ -116,7 +112,7 @@ const HomeScreen = (props: any) => {
     const fuse = new Fuse(data, options);
     const searched = fuse.search(search);
     props.navigation.navigate('Search', {data: searched || []});
-  }
+  };
 
   const renderFooter = () => {
     if (!loadingMore) return null;
@@ -141,13 +137,19 @@ const HomeScreen = (props: any) => {
   return (
     <>
       <Header searchBar rounded>
-          <Item>
-            <Input placeholder="Search" onChangeText={setSearchText} value={search} />
-          </Item>
-          <Button transparent onPress={onSearch}>
-            <Text>Search</Text>
-          </Button>
-        </Header>
+        <Item>
+          <Input
+            placeholder="Search"
+            onChangeText={setSearchText}
+            value={search}
+            onSubmitEditing={onSearch}
+            returnKeyType={'search'}
+          />
+        </Item>
+        <Button transparent onPress={onSearch}>
+          <Text>Search</Text>
+        </Button>
+      </Header>
       {!loading ? (
         <FlatList
           data={data}
