@@ -7,3 +7,5 @@
 $ cd android && ./gradlew assembleRelease
 ```
  - You will find the APK file in: android/app/build/outputs/apk/release/app-release.apk
+ - A build already generated, please find it in APK Build folder
+ 
